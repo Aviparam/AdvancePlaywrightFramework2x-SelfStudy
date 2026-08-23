@@ -4,6 +4,16 @@
     "module": "commonjs",
     "lib": ["ES2020", "DOM"],
     "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@utils/*": ["src/utils/*"],
+      "@pages/*": ["src/pages/*"],
+      "@config/*": ["src/config/*"],
+      "@fixtures/*": ["src/fixtures/*"],
+      "@api/*": ["src/api/*"],
+      "@testdata/*": ["src/testdata/*"]
+    },
     "outDir": "dist",
     "rootDir": "./",
     "strict": true,

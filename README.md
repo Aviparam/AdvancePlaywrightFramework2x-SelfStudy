@@ -1,38 +1,47 @@
 # Advance Playwright Framework 2x Self Study
 
-A modular Playwright + TypeScript automation framework for web and API testing, built for structured, maintainable, and scalable test automation.
+This repository is a Playwright + TypeScript-based test automation framework focused on browser UI automation, environment-based execution, reusable page objects, and detailed reporting.
 
-## Project Overview
+## Project purpose
 
-This project demonstrates a structured approach to Playwright automation using:
+The goal of this project is to help learn and practice:
 
-- Playwright Test for browser automation
-- TypeScript for typed, reusable code
-- Environment-based configuration using `.env`
-- Page Object Model (POM) style structure
-- API utilities and reusable helpers
-- Reporting and test data management
-- Custom logging and configuration patterns
+- Playwright test automation
+- Page Object Model (POM) design
+- Environment-driven test configuration
+- Reusable utility patterns
+- Failure artifact capturing
+- HTML and custom reporting
+- Modular project structure for scalable automation suites
 
-## Tech Stack
+## Tech stack
 
 - Node.js
 - TypeScript
-- Playwright
+- Playwright Test
 - dotenv
-- csv-parse
-- xlsx
-- Ajv / Ajv Formats
 - Winston
+- Xlsx
+- csv-parse
+- Ajv and Ajv Formats
+- Faker
 - Allure Playwright
 
-## Project Structure
+## Current project structure
 
 ```text
 AdvancePlaywrightFramework2x-SelfStudy/
 ├── .env
 ├── .github/
+├── .gitignore
+├── AGENTS.md
+├── README.md
+├── custom-report/
 ├── docs/
+├── node_modules/
+├── package-lock.json
+├── package.json
+├── playwright.config.ts
 ├── rules/
 ├── src/
 │   ├── api/
@@ -42,32 +51,30 @@ AdvancePlaywrightFramework2x-SelfStudy/
 │   ├── testdata/
 │   ├── tests/
 │   └── utils/
+├── test-results/
 ├── tests/
-├── .gitignore
-├── package.json
-├── package-lock.json
-├── playwright.config.ts
 ├── tsconfig.json
-├── README.md
-└── node_modules/
+└── playwright-report/
 ```
 
-## Folder Responsibilities
+## Folder responsibilities
 
-- `src/api` – API clients and request helpers
-- `src/config` – environment and config management
-- `src/fixtures` – Playwright fixtures and reusable setup
-- `src/pages` – Page Object Model classes
-- `src/testdata` – CSV/JSON/XLSX data files and test payloads
-- `src/tests` – actual Playwright test suite
-- `src/utils` – custom reporter, logger, helpers, utility code
-- `docs` – documentation and notes
-- `rules` – custom rules or guidance
-- `.github` – GitHub workflow and automation files
+- `src/api` – API-related helpers and clients
+- `src/config` – environment configuration logic
+- `src/fixtures` – Playwright fixtures and setup hooks
+- `src/pages` – Page Object Model classes such as `LoginPage` and `BasePage`
+- `src/testdata` – test data inputs for CSV/JSON/XLSX driven testing
+- `src/tests` – actual Playwright test specs
+- `src/utils` – logging, custom report generation, selectors, and reusable utilities
+- `docs` – project documentation and notes
+- `rules` – custom rules and guidance
+- `.github` – GitHub automation and workflow files
+- `custom-report` – generated custom HTML report output
+- `test-results` – Playwright execution artifacts such as screenshots, video, and traces
 
 ## Prerequisites
 
-Before running tests, install the following:
+Make sure the following are installed:
 
 - Node.js 18+
 - npm
@@ -80,11 +87,11 @@ npm install
 npx playwright install
 ```
 
-## Environment Configuration
+## Environment configuration
 
-The project uses a `.env` file for runtime configuration.
+The project uses a `.env` file to drive environment-dependent URLs and variables.
 
-Example values:
+Current example values:
 
 ```env
 TTA_ENV=qa
@@ -101,21 +108,23 @@ USERNAME=admin
 PASSWORD=ADMIN123
 ```
 
-## Playwright Configuration
+## Playwright config behavior
 
-The framework uses `playwright.config.ts` to configure:
+The framework is set up in [playwright.config.ts](playwright.config.ts) with:
 
-- base URL selection based on environment
-- test directory
-- timeouts
-- retries
-- HTML and list reporting
-- browser project configuration
-- screenshots, video, and trace capture
+- `testDir: ./src/tests`
+- `timeout: 60_000`
+- `fullyParallel: true`
+- HTML reporter enabled
+- custom reporter enabled
+- screenshots captured only on failure
+- video captured for every test
+- trace captured for every test
+- Chromium project configured for desktop browser testing
 
-## Run Tests
+## Running tests
 
-Run all tests:
+Run the full suite:
 
 ```bash
 npm test
@@ -127,31 +136,45 @@ Run in headed mode:
 npm run test:headed
 ```
 
-Open the HTML report:
+Open Playwright HTML report:
 
 ```bash
 npm run test:report
 ```
 
-## Example Test
+## Current sample test
 
-A sample test file is available under `tests/example.spec.ts` and demonstrates:
+A sample login test exists in:
 
-- page navigation
-- title assertions
-- element interactions
-- role-based selectors
+- `src/tests/login.spec.ts`
+
+It validates login using the TTACart demo app and confirms the login form hides after successful login.
+
+## Reporting
+
+The project includes:
+
+- standard Playwright HTML report
+- custom HTML reporter in `src/utils/CustomReporter.ts`
+- generated reports in `custom-report/`
+- run artifacts in `test-results/`
+
+Artifacts include:
+
+- screenshots on failure
+- video recording for every test run
+- trace files for debugging and analysis
 
 ## Notes
 
-- This repository is designed for learning and structured automation practice.
-- The project is intentionally modular so new test flows, pages, and utilities can be added cleanly.
-- The configuration can be extended for multiple environments (QA, STG, DEV, PROD).
-
-## Author
-
-Pramod Dutta
+- The project is intentionally modular for learning and expansion.
+- It is suitable for building more realistic automation suites with page objects, fixtures, and API helpers.
+- The config and utilities can be extended for QA, staging, dev, and production environments.
 
 ## Repository
 
 https://github.com/Aviparam/AdvancePlaywrightFramework2x-SelfStudy.git
+
+## Author
+
+Pramod Dutta
